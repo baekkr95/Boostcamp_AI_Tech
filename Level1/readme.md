@@ -5,3 +5,6 @@
 3. [Data Viz](https://github.com/baekkr95/Boostcamp_AI_Tech/tree/main/Level1/Data%20Viz)
 4. [Deep Learning Basics](https://github.com/baekkr95/Boostcamp_AI_Tech/tree/main/Level1/Deep%20Learning%20Basics)
 5. [AI Services Development](https://github.com/baekkr95/Boostcamp_AI_Tech/tree/main/Level1/AI%20Services%20Development)
+
+### 경진대회 (P stage)
+6. Image Classification
