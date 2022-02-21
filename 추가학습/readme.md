@@ -1,10 +1,7 @@
-## 부스트캠프 별도로 공부하는 공간
+## CV 관련 TIPS
+### 이미지 시각화
+1. [이미지를 opencv로 불러서 matplotlib으로 시각화](https://deep-learning-study.tistory.com/100)  
+    - cv2.imread는 BGR로 불러오므로 cv2.cvtColor(imgBGR, cv2.COLOR_BGR2RGB)로 RGB로 색상정보를 변경해야 합니다.
 
-- 논문, 외부강의, 유튜브(PR12, 논문리딩채널 등..)를 통해서 궁금했거나 학습에 필요하다고 생각되는 것들을 정리
-- CV 트랙과 관련된 주제를 위주로 정리
-
-### 정리 논문
-1. R-CNN 계열 모델
-    - R-CNN, Fast R-CNN, Faster R-CNN
-
-2. YOLO
+2. [이미지를 Pillow로 불러서 matplotlib으로 시각화](https://kimtaeuk0103.tistory.com/28)
+    - PIL로 이미지를 부르고 numpy 타입으로 형변환 후에 plt.imshow() 사용
