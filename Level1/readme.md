@@ -7,4 +7,4 @@
 5. [AI Services Development](https://github.com/baekkr95/Boostcamp_AI_Tech/tree/main/Level1/AI%20Services%20Development)
 
 ### 경진대회 (P stage)
-6. [Image Classification 경진대회](https://github.com/baekkr95/Boostcamp_AI_Tech/blob/main/Level1/Image%20Classification/EDA.ipynb)
+6. [Image Classification 경진대회](https://github.com/baekkr95/Boostcamp_AI_Tech/tree/main/Level1/Image%20Classification)
