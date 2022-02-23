@@ -13,3 +13,7 @@
 4. [Albumentations 공식 문서](https://albumentations.ai/docs/getting_started/installation/)
     - 기본적으로 opencv가 필요하다. 
     - 참고 블로그 : https://albumentations.ai/docs/getting_started/installation/
+
+
+### Loss
+1. 불균형 데이터, Focal Loss
