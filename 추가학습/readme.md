@@ -9,3 +9,7 @@
 
 3. [tensor 이미지를 matplotlib으로 시각화](https://ndb796.tistory.com/373?category=1011147)
     - PyTorch의 경우 [Batch Size, Channel, Width, Height]의 구조를 가지고 있어서, 이를 matplotlib로 출력하기 위해서는 [Width, Height, Channel]의 순서로 변경해주어야 한다.
+
+4. [Albumentations 공식 문서](https://albumentations.ai/docs/getting_started/installation/)
+    - 기본적으로 opencv가 필요하다. 
+    - 참고 블로그 : https://albumentations.ai/docs/getting_started/installation/
