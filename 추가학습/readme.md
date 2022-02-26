@@ -20,6 +20,7 @@
 ### Loss
 1. 불균형 데이터 관련
     - Focal Loss
+    - Label Smoothing : https://ratsgo.github.io/insight-notes/docs/interpretable/smoothing
     - Weighted Sampler
     - Imbalanced dataset sampler (oversampling)
     - 
