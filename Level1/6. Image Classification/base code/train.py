@@ -63,6 +63,25 @@ def grid_image(np_images, gts, preds, n=16, shuffle=False):
 
     return figure
 
+### cutmix 함수 (세로 절반 cutmix)
+
+import random
+def half_bbox(size, lam):
+    W = size[2]
+    H = size[3]
+
+    # 왼쪽 절반, 오른쪽 절반에 대한 좌표값
+    idx = random.randint(0,1)
+
+    bbx1 = [0, 0]
+    bby1 = [0, H//2]
+    
+    bbx2 = [W, W]
+    bby2 = [H//2, H]
+
+    return bbx1[idx], bby1[idx], bbx2[idx], bby2[idx]
+
+
 
 def increment_path(path, exist_ok=False):
     """ Automatically increment path, i.e. runs/exp --> runs/exp0, runs/exp1 etc.
@@ -113,7 +132,7 @@ def train(data_dir, model_dir, args):
     train_loader = DataLoader(
         train_set,
         batch_size=args.batch_size,
-        num_workers=multiprocessing.cpu_count() // 2,
+        # num_workers=multiprocessing.cpu_count() // 2,
         shuffle=True,
         pin_memory=use_cuda,
         drop_last=True,
@@ -122,7 +141,7 @@ def train(data_dir, model_dir, args):
     val_loader = DataLoader(
         val_set,
         batch_size=args.valid_batch_size,
-        num_workers=multiprocessing.cpu_count() // 2,
+        # num_workers=multiprocessing.cpu_count() // 2,
         shuffle=False,
         pin_memory=use_cuda,
         drop_last=True,
@@ -160,18 +179,83 @@ def train(data_dir, model_dir, args):
         for idx, train_batch in enumerate(train_loader):
             inputs, labels = train_batch
             inputs = inputs.to(device)
-            labels = labels.to(device)
+            # labels = labels.to(device)
+            labels = labels
 
             optimizer.zero_grad()
 
-            outs = model(inputs)
-            preds = torch.argmax(outs, dim=-1)
-            loss = criterion(outs, labels)
+            ### cutmix 구현 장소
+            r = np.random.rand(1)
+            if r <= 0.4:            # r 에 대한 확률도 파라미터로 받으면 좋을 듯
+                lam = 1/2
+                rand_index = torch.randperm(inputs.size()[0]).cuda()
+                target_a = labels
 
-            loss.backward()
-            optimizer.step()
+                # target_b = labels[rand_index]
+                # bbx1, bby1, bbx2, bby2 = half_bbox(inputs.size(), lam)
+                # inputs[:, :, bbx1:bbx2, bby1:bby2] = inputs[rand_index, :, bbx1:bbx2, bby1:bby2]
 
-            loss_value += loss.item()
+
+                # logits = model(inputs)
+                # _, preds = torch.max(logits, 1) # 모델에서 linear 값으로 나오는 예측 값 ([0.9,1.2, 3.2,0.1,-0.1,...])을 최대 output index를 찾아 예측 레이블([2])로 변경함  
+                # loss = criterion(logits, target_a) * lam + criterion(logits, target_b) * (1. - lam)
+
+                # loss.backward() # 모델의 예측 값과 실제 값의 CrossEntropy 차이를 통해 gradient 계산
+                # optimizer.step() # 계산된 gradient를 가지고 모델 업데이트
+
+
+                ##### 멀티 레이블 모델 
+                target_mask = labels['mask'][rand_index]
+                target_gender = labels['gender'][rand_index]
+                target_age = labels['age'][rand_index]
+
+                target_b = {'mask' : target_mask, 'gender' : target_gender, 'age' : target_age}
+                bbx1, bby1, bbx2, bby2 = half_bbox(inputs.size(), lam)
+                inputs[:, :, bbx1:bbx2, bby1:bby2] = inputs[rand_index, :, bbx1:bbx2, bby1:bby2]
+
+
+                output = model(inputs)
+
+                pred_mask = torch.argmax(output['mask'], dim=-1)
+                pred_gender = torch.argmax(output['gender'], dim=-1)
+                pred_age = torch.argmax(output['age'], dim=-1)
+                pred_class = (pred_mask * 6) + (pred_gender * 3) + (pred_age)
+
+                loss_train = model.get_loss(output, target_a) * lam + model.get_loss(output, target_b) * (1. - lam)
+                total_loss += loss_train.item()
+
+                loss_train.backward()       # gradient를 계산
+                optimizer.step()      # gradient descent
+
+
+
+            else: 
+                # outs = model(inputs)
+                # preds = torch.argmax(outs, dim=-1)
+                # loss = criterion(outs, labels)
+
+                # loss.backward()
+                # optimizer.step()
+
+
+                ##### 멀티 레이블 모델
+                output = model(inputs)
+
+                pred_mask = torch.argmax(output['mask'], dim=-1)
+                pred_gender = torch.argmax(output['gender'], dim=-1)
+                pred_age = torch.argmax(output['age'], dim=-1)
+                pred_class = (pred_mask * 6) + (pred_gender * 3) + (pred_age)
+
+                loss_train = model.get_loss(output, labels)
+                total_loss += loss_train.item()
+
+                loss_train.backward()       # gradient를 계산
+                optimizer.step()      # gradient descent
+
+
+            # loss_value += loss.item()
+            loss_value += loss_train.item   # 멀티레이블모델
+
             matches += (preds == labels).sum().item()
             if (idx + 1) % args.log_interval == 0:
                 train_loss = loss_value / args.log_interval
@@ -242,9 +326,9 @@ if __name__ == '__main__':
     parser.add_argument('--epochs', type=int, default=1, help='number of epochs to train (default: 1)')
     parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskBaseDataset)')
     parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: BaseAugmentation)')
-    parser.add_argument("--resize", nargs="+", type=list, default=[128, 96], help='resize size for image when training')
+    parser.add_argument("--resize", nargs="+", type=list, default=[350, 350], help='resize size for image when training')
     parser.add_argument('--batch_size', type=int, default=64, help='input batch size for training (default: 64)')
-    parser.add_argument('--valid_batch_size', type=int, default=1000, help='input batch size for validing (default: 1000)')
+    parser.add_argument('--valid_batch_size', type=int, default=128, help='input batch size for validing (default: 1000)')
     parser.add_argument('--model', type=str, default='BaseModel', help='model type (default: BaseModel)')
     parser.add_argument('--optimizer', type=str, default='SGD', help='optimizer type (default: SGD)')
     parser.add_argument('--lr', type=float, default=1e-3, help='learning rate (default: 1e-3)')
@@ -255,7 +339,7 @@ if __name__ == '__main__':
     parser.add_argument('--name', default='exp', help='model save at {SM_MODEL_DIR}/{name}')
 
     # Container environment
-    parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train/images'))
+    parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/backup/input/data/train/images'))
     parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', './model'))
 
     args = parser.parse_args()

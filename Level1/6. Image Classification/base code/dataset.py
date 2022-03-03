@@ -1,5 +1,6 @@
 import os
 import random
+import pandas as pd
 from collections import defaultdict
 from enum import Enum
 from typing import Tuple, List
@@ -18,6 +19,23 @@ IMG_EXTENSIONS = [
 
 def is_image_file(filename):
     return any(filename.endswith(extension) for extension in IMG_EXTENSIONS)
+
+
+### Augmentation이 추가된 Dataset Class 만들어야 할 듯 -> MyDataset을 맨 아래에 작성
+### 여기에 MyDataset에 필요한 transform들을 작성할 것 -> MyAugmentation
+class MyAugmentation:
+    def __init__(self, resize, mean, std, **args):
+        self.transform = Compose([
+            CenterCrop(350),
+            # torchvision.transforms.Resize((350,350),Image.BILINEAR),
+            ToTensor(),
+            Normalize(mean=(0.5,0.5,0.5), std=(0.2,0.2,0.2)),
+        ])
+
+    def __call__(self, image):
+        return self.transform(image)
+################
+
 
 
 class BaseAugmentation:
@@ -311,3 +329,38 @@ class TestDataset(Dataset):
 
     def __len__(self):
         return len(self.img_paths)
+
+
+#### 여기에 커스템 데이터셋 추가
+#### augment 데이터도 불러옴
+# Custom Dataset 생성
+class MyDataset(Dataset):
+    # 초기 데이터 생성 방법을 지정
+    def __init__(self, df, transforms=None):
+
+        train_df = pd.read_csv('train_label.csv')
+        aug_df = pd.read_csv('augment.csv')
+        aug_df3 = pd.read_csv('augment3.csv') # 2/27 추가
+
+        concat_df = pd.concat([train_df,aug_df], ignore_index=True)
+        df = pd.concat([concat_df,aug_df3], ignore_index=True) # 최종 d
+
+        self.df = df
+        self.image_data = self.df['path']   # x data, 이미지
+        self.image_label = self.df['label'] # y data, 레이블
+
+        self.transform = transforms
+
+    # 데이터 전체 길이
+    def __len__(self):
+        return len(self.image_label)
+
+    # 인덱스 주었을 때 반환되는 데이터의 형태
+    def __getitem__(self, idx):
+        image = Image.open(self.image_data.iloc[idx])
+        label = self.image_label.iloc[idx]
+
+        if self.transform:
+            image = self.transform(image)
+
+        return image, torch.tensor(label)
