@@ -5,7 +5,7 @@
 ### 1. 이번 프로젝트에서 나의 목표는 무엇이었는가?
 - 가장 큰 목표는 데이터 분석부터 Inference까지 전체 과정을 직접 구현해봄으로써 전체 흐름을 손에 익히는 것이고, 
 - 그 다음으로는 앞으로 배워갈 CV 도메인과 모델링 관련된 여러 기법들을 (예를 들면, Augmentation, Fine-tuning, Cutmix, Imbalanced Data를 해결하기 위한 Loss와 Sampler 등..) 구현하고 사용해보는 것 입니다.
-- [프로젝트 요일별 회고](https://pleasant-puppet-039.notion.site/Image-Classification-2-21-3-4-da588b09c32740daa30049e60adec8fc)
+- [프로젝트 요일별 공부자료 및 회고](https://pleasant-puppet-039.notion.site/Image-Classification-2-21-3-4-da588b09c32740daa30049e60adec8fc)
 
 ### 2. 나는 어떤 방식으로 모델을 개선했고, 팀에서 어떤 시도를 해봤는가? 그리고 그 효과는?
 >#### 데이터 측면 
