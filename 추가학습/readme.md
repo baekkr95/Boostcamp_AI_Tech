@@ -18,6 +18,9 @@
 5. [cutmix 구현, 공식문서](https://github.com/clovaai/CutMix-PyTorch/tree/2d8eb68faff7fe4962776ad51d175c3b01a25734)
     - Loss function은 하나, cutmix를 쓸때 안 쓸때 구분만 하면 된다.
 
+6. Visualizing augmentated images
+    - 원하는 augmentation이 잘 적용되고 있는지 확인해보는 과정은 필수다.
+
 ### Loss
 1. 불균형 데이터 관련
     - Focal Loss
