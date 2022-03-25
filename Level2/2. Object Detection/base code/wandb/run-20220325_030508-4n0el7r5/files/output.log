@@ -1,0 +1,70 @@
+
+2022-03-25 03:05:39,568 - mmdet - INFO - Epoch [1][25/244]	lr: 9.926e-05, eta: 0:03:53, time: 1.066, data_time: 0.123, memory: 6569, loss_rpn_cls: 0.4310, loss_rpn_bbox: 0.0649, loss_cls: 0.8253, acc: 82.1714, loss_bbox: 0.1458, loss: 1.4670, grad_norm: 10.4706
+2022-03-25 03:06:04,465 - mmdet - INFO - Epoch [1][50/244]	lr: 2.016e-04, eta: 0:03:20, time: 0.996, data_time: 0.019, memory: 6577, loss_rpn_cls: 0.1692, loss_rpn_bbox: 0.0519, loss_cls: 0.3580, acc: 93.6118, loss_bbox: 0.2425, loss: 0.8216, grad_norm: 4.4009
+2022-03-25 03:06:28,692 - mmdet - INFO - Epoch [1][75/244]	lr: 3.040e-04, eta: 0:02:50, time: 0.969, data_time: 0.019, memory: 6577, loss_rpn_cls: 0.1374, loss_rpn_bbox: 0.0534, loss_cls: 0.3812, acc: 92.6655, loss_bbox: 0.2818, loss: 0.8538, grad_norm: 2.8569
+2022-03-25 03:06:51,931 - mmdet - INFO - Epoch [1][100/244]	lr: 4.063e-04, eta: 0:02:22, time: 0.930, data_time: 0.019, memory: 6577, loss_rpn_cls: 0.1133, loss_rpn_bbox: 0.0497, loss_cls: 0.3417, acc: 93.2217, loss_bbox: 0.2513, loss: 0.7560, grad_norm: 2.7749
+2022-03-25 03:07:15,827 - mmdet - INFO - Epoch [1][125/244]	lr: 5.087e-04, eta: 0:01:57, time: 0.956, data_time: 0.019, memory: 6577, loss_rpn_cls: 0.1185, loss_rpn_bbox: 0.0523, loss_cls: 0.3732, acc: 92.4629, loss_bbox: 0.2673, loss: 0.8114, grad_norm: 2.6345
+2022-03-25 03:07:39,139 - mmdet - INFO - Epoch [1][150/244]	lr: 6.110e-04, eta: 0:01:31, time: 0.932, data_time: 0.019, memory: 6577, loss_rpn_cls: 0.1172, loss_rpn_bbox: 0.0455, loss_cls: 0.3520, acc: 92.6528, loss_bbox: 0.2556, loss: 0.7703, grad_norm: 2.2798
+2022-03-25 03:08:02,655 - mmdet - INFO - Epoch [1][175/244]	lr: 7.134e-04, eta: 0:01:06, time: 0.941, data_time: 0.018, memory: 6577, loss_rpn_cls: 0.1584, loss_rpn_bbox: 0.0570, loss_cls: 0.4448, acc: 92.0879, loss_bbox: 0.2723, loss: 0.9324, grad_norm: 4.1084
+2022-03-25 03:08:27,193 - mmdet - INFO - Epoch [1][200/244]	lr: 8.158e-04, eta: 0:00:42, time: 0.982, data_time: 0.019, memory: 6587, loss_rpn_cls: 0.2392, loss_rpn_bbox: 0.0904, loss_cls: 0.5139, acc: 94.3110, loss_bbox: 0.2553, loss: 1.0988, grad_norm: 10.8497
+2022-03-25 03:08:50,955 - mmdet - INFO - Epoch [1][225/244]	lr: 9.181e-04, eta: 0:00:18, time: 0.950, data_time: 0.019, memory: 6619, loss_rpn_cls: 0.1919, loss_rpn_bbox: 0.0657, loss_cls: 1.2342, acc: 89.0640, loss_bbox: 0.2961, loss: 1.7879, grad_norm: 45.7378
+2022-03-25 03:09:08,721 - mmdet - INFO - Saving checkpoint at 1 epochs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>] 982/982, 18.7 task/s, elapsed: 52s, ETA:     0sLoading and preparing results...
+DONE (t=0.02s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.93s).
+Accumulating evaluation results...
+DONE (t=0.23s).
+2022-03-25 03:10:03,120 - mmdet - INFO - Evaluating bbox...
+2022-03-25 03:10:04,368 - mmdet - INFO -
+ Average Precision  (AP) @[ IoU=0.50:0.50 | area=   all | maxDets=100 ] = 0.002
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.50 | area= small | maxDets=1000 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.50 | area=medium | maxDets=1000 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.50 | area= large | maxDets=1000 ] = 0.003
+ Average Recall     (AR) @[ IoU=0.50:0.50 | area=   all | maxDets=100 ] = 0.038
+ Average Recall     (AR) @[ IoU=0.50:0.50 | area=   all | maxDets=300 ] = 0.038
+ Average Recall     (AR) @[ IoU=0.50:0.50 | area=   all | maxDets=1000 ] = 0.038
+ Average Recall     (AR) @[ IoU=0.50:0.50 | area= small | maxDets=1000 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.50 | area=medium | maxDets=1000 ] = 0.001
+ Average Recall     (AR) @[ IoU=0.50:0.50 | area= large | maxDets=1000 ] = 0.048
+2022-03-25 03:10:04,369 - mmdet - INFO -
++---------------+-------+-------------+-------+------------+-------+
+| category      | AP    | category    | AP    | category   | AP    |
++---------------+-------+-------------+-------+------------+-------+
+| General trash | 0.000 | Paper       | 0.010 | Paper pack | 0.000 |
+| Metal         | 0.000 | Glass       | 0.000 | Plastic    | 0.000 |
+| Styrofoam     | 0.000 | Plastic bag | 0.012 | Battery    | 0.000 |
+| Clothing      | 0.000 | None        | None  | None       | None  |
++---------------+-------+-------------+-------+------------+-------+
+2022-03-25 03:10:04,401 - mmdet - INFO - Epoch(val) [1][982]	bbox_mAP: 0.0020, bbox_mAP_s: 0.0000, bbox_mAP_m: 0.0000, bbox_mAP_l: 0.0030, bbox_mAP_copypaste: 0.002 -1.000 -1.000 0.000 0.000 0.003

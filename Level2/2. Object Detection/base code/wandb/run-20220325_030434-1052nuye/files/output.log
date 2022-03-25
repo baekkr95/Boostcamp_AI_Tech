@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "baseline.py", line 130, in <module>
+    train_detector(model, datasets[0], cfg, distributed=False, validate=True)
+  File "/opt/ml/detection/baseline/mmdetection/mmdet/apis/train.py", line 208, in train_detector
+    runner.run(data_loaders, cfg.workflow)
+  File "/opt/conda/envs/detection/lib/python3.7/site-packages/mmcv/runner/epoch_based_runner.py", line 127, in run
+    epoch_runner(data_loaders[i], **kwargs)
+  File "/opt/conda/envs/detection/lib/python3.7/site-packages/mmcv/runner/epoch_based_runner.py", line 47, in train
+    for i, data_batch in enumerate(self.data_loader):
+  File "/opt/conda/envs/detection/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 435, in __next__
+    data = self._next_data()
+  File "/opt/conda/envs/detection/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 1085, in _next_data
+    return self._process_data(data)
+  File "/opt/conda/envs/detection/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 1111, in _process_data
+    data.reraise()
+  File "/opt/conda/envs/detection/lib/python3.7/site-packages/torch/_utils.py", line 428, in reraise
+    raise self.exc_type(msg)
+FileNotFoundError: Caught FileNotFoundError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/opt/conda/envs/detection/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 198, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/opt/conda/envs/detection/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/opt/conda/envs/detection/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/opt/ml/detection/baseline/mmdetection/mmdet/datasets/custom.py", line 218, in __getitem__
+    data = self.prepare_train_img(idx)
+  File "/opt/ml/detection/baseline/mmdetection/mmdet/datasets/custom.py", line 241, in prepare_train_img
+    return self.pipeline(results)
+  File "/opt/ml/detection/baseline/mmdetection/mmdet/datasets/pipelines/compose.py", line 41, in __call__
+    data = t(data)
+  File "/opt/ml/detection/baseline/mmdetection/mmdet/datasets/pipelines/loading.py", line 65, in __call__
+    img_bytes = self.file_client.get(filename)
+  File "/opt/conda/envs/detection/lib/python3.7/site-packages/mmcv/fileio/file_client.py", line 993, in get
+    return self.client.get(filepath)
+  File "/opt/conda/envs/detection/lib/python3.7/site-packages/mmcv/fileio/file_client.py", line 518, in get
+    with open(filepath, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '../../dataset/train/2964.jpg'

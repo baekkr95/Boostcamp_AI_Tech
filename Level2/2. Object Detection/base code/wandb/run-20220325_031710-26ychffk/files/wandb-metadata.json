@@ -1,0 +1,24 @@
+{
+    "os": "Linux-4.4.0-59-generic-x86_64-with-debian-buster-sid",
+    "python": "3.7.11",
+    "heartbeatAt": "2022-03-25T03:17:12.052891",
+    "startedAt": "2022-03-25T03:17:10.722743",
+    "docker": null,
+    "gpu": "Tesla V100-PCIE-32GB",
+    "gpu_count": 1,
+    "cpu_count": 8,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "baseline.py",
+    "codePath": "configs/_boost_/baseline.py",
+    "git": {
+        "remote": "https://github.com/open-mmlab/mmdetection.git",
+        "commit": "6ddbff8406aec8b414462badbd57c4013b594afe"
+    },
+    "email": null,
+    "root": "/opt/ml/detection/baseline/mmdetection",
+    "host": "a30803c9cf4a",
+    "username": "root",
+    "executable": "/opt/conda/envs/detection/bin/python"
+}
