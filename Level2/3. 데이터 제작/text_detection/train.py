@@ -37,7 +37,7 @@ def parse_args():
     parser = ArgumentParser()
     # directory
     parser.add_argument('--data_dir', type=str,
-                        default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/ICDAR17_train_cv'))
+                        default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/wj'))
     parser.add_argument('--val_data_dir', type=str,
                         default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/ICDAR17_valid_cv'))
     parser.add_argument('--json_dir', type=str,
